@@ -1,7 +1,12 @@
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using ProiectRestaurant.Data;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+builder.Services.AddDbContext<ProiectRestaurantContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("ProiectRestaurantContext") ?? throw new InvalidOperationException("Connection string 'ProiectRestaurantContext' not found.")));
 
 var app = builder.Build();
 

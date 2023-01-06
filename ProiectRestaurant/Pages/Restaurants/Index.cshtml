@@ -1,0 +1,97 @@
+﻿@page "/"
+@model ProiectRestaurant.Pages.Restaurants.IndexModel
+
+@{
+    ViewData["Title"] = "Menu";
+}
+
+<h1>Menu</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+
+<form asp-page="./Index" method="get">
+    <div class="form-actions no-color">
+        <p>
+            Find by Dish Name / Chef Name:
+            <input type="text" name="SearchString" value="@Model.CurrentFilter" />
+            <input type="submit" value="Search" class="btn btn-primary" /> |
+            <a asp-page="./Index">Back to full Menu</a>
+        </p>
+    </div>
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                <a asp-page="./Index" asp-route-sortOrder="@Model.DishNameSort">
+                    @Html.DisplayNameFor(model => model.Restaurant[0].Dish_Name)
+                </a>
+            </th>
+            <th>
+                <a asp-page="./Index" asp-route-sortOrder="@Model.ChefSort">
+                    @Html.DisplayNameFor(model => model.Restaurant[0].Chefs)
+                </a>
+            </th>
+            <th></th>
+            <th>
+                @Html.DisplayNameFor(model => model.Restaurant[0].Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Restaurant[0].MenuDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Restaurant[0].FoodType.FoodTypeName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Restaurant[0].FoodCategories)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.RestaurantD.Restaurants)
+        {
+            string selectedRow = "";
+            if (item.ID == Model.RestaurantID)
+            {
+                selectedRow = "table-success";
+            }
+            <tr class="@selectedRow">
+                <td>
+                    @Html.DisplayFor(modelItem => item.Dish_Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Chefs.LastName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Chefs.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MenuDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FoodType.FoodTypeName)
+                </td>
+                <td>
+                    @{
+                        foreach (var category in item.FoodCategories)
+                        {
+                            @category.Category.ID @: @category.Category.FoodCategoryName <br />
+                        }
+                    }
+                </td>
+                <td>
+                    <a asp-page="./Edit" asp-route-id="@item.ID">Edit</a> |
+                    <a asp-page="./Details" asp-route-id="@item.ID">Details</a> |
+                    <a asp-page="./Delete" asp-route-id="@item.ID">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
