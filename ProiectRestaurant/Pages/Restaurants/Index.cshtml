@@ -35,7 +35,6 @@
                     @Html.DisplayNameFor(model => model.Restaurant[0].Chefs)
                 </a>
             </th>
-            <th></th>
             <th>
                 @Html.DisplayNameFor(model => model.Restaurant[0].Price)
             </th>
@@ -64,10 +63,7 @@
                     @Html.DisplayFor(modelItem => item.Dish_Name)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Chefs.LastName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Chefs.FirstName)
+                    @Html.DisplayFor(modelItem => item.Chefs.FullName)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Price)
@@ -82,7 +78,7 @@
                     @{
                         foreach (var category in item.FoodCategories)
                         {
-                            @category.Category.ID @: @category.Category.FoodCategoryName <br />
+                            @category.Category.FoodCategoryName <br />
                         }
                     }
                 </td>

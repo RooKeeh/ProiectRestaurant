@@ -4,7 +4,7 @@
 
 namespace ProiectRestaurant.Migrations
 {
-    public partial class FoodCategories : Migration
+    public partial class AddMigration1 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

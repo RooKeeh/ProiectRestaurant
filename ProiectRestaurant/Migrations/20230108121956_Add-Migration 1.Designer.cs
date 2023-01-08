@@ -12,8 +12,8 @@ using ProiectRestaurant.Data;
 namespace ProiectRestaurant.Migrations
 {
     [DbContext(typeof(ProiectRestaurantContext))]
-    [Migration("20230106142053_FoodCategories")]
-    partial class FoodCategories
+    [Migration("20230108121956_Add-Migration 1")]
+    partial class AddMigration1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -39,25 +39,6 @@ namespace ProiectRestaurant.Migrations
                     b.HasKey("ID");
 
                     b.ToTable("Category");
-                });
-
-            modelBuilder.Entity("ProiectRestaurant.Models.Chef", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
-
-                    b.Property<string>("FirstName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("LastName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("ID");
-
-                    b.ToTable("Chef");
                 });
 
             modelBuilder.Entity("ProiectRestaurant.Models.FoodCategory", b =>
@@ -107,9 +88,6 @@ namespace ProiectRestaurant.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
 
-                    b.Property<int?>("ChefsID")
-                        .HasColumnType("int");
-
                     b.Property<string>("Dish_Name")
                         .HasColumnType("nvarchar(max)");
 
@@ -123,8 +101,6 @@ namespace ProiectRestaurant.Migrations
                         .HasColumnType("decimal(6,2)");
 
                     b.HasKey("ID");
-
-                    b.HasIndex("ChefsID");
 
                     b.HasIndex("FoodTypeID");
 
@@ -152,15 +128,9 @@ namespace ProiectRestaurant.Migrations
 
             modelBuilder.Entity("ProiectRestaurant.Models.Restaurant", b =>
                 {
-                    b.HasOne("ProiectRestaurant.Models.Chef", "Chefs")
-                        .WithMany()
-                        .HasForeignKey("ChefsID");
-
                     b.HasOne("ProiectRestaurant.Models.FoodType", "FoodType")
                         .WithMany("Restaurants")
                         .HasForeignKey("FoodTypeID");
-
-                    b.Navigation("Chefs");
 
                     b.Navigation("FoodType");
                 });

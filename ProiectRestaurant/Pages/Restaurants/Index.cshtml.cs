@@ -35,7 +35,7 @@ namespace ProiectRestaurant.Pages.Restaurants
             RestaurantD = new RestaurantData();
 
             DishNameSort = String.IsNullOrEmpty(sortOrder) ? "dish_name_desc" : "";
-            ChefSort = String.IsNullOrEmpty(sortOrder) ? "chefs_desc" : "";
+            ChefSort = String.IsNullOrEmpty(sortOrder) ? "chef_desc" : "";
 
             CurrentFilter = searchString;
 
@@ -69,7 +69,7 @@ namespace ProiectRestaurant.Pages.Restaurants
                     RestaurantD.Restaurants = RestaurantD.Restaurants.OrderByDescending(s =>
                    s.Dish_Name);
                     break;
-                case "chefs_desc":
+                case "chef_desc":
                     RestaurantD.Restaurants = RestaurantD.Restaurants.OrderByDescending(s =>
                    s.Chefs.FullName);
                     break;

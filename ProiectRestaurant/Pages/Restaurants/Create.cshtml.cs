@@ -24,7 +24,7 @@ namespace ProiectRestaurant.Pages.Restaurants
         public IActionResult OnGet()
         {
             ViewData["FoodTypeID"] = new SelectList(_context.Set<FoodType>(), "ID", "FoodTypeName");
-            ViewData["ChefsID"] = new SelectList(_context.Set<Chef>(), "ID", "LastName");
+            ViewData["ChefsID"] = new SelectList(_context.Set<Chef>(), "ID", "FullName");
             var restaurant = new Restaurant();
             restaurant.FoodCategories = new List<Models.FoodCategory>();
             PopulateAssignedCategoryData(_context, restaurant);
@@ -49,7 +49,7 @@ namespace ProiectRestaurant.Pages.Restaurants
                     newRestaurant.FoodCategories.Add(catToAdd);
                 }
             }
-            if (await TryUpdateModelAsync<Restaurant>(newRestaurant, "Restaurant", i => i.Dish_Name, i => i.Chefs, i => i.Price, i => i.MenuDate, i => i.FoodTypeID))
+            if (await TryUpdateModelAsync<Restaurant>(newRestaurant, "Restaurant", i => i.Dish_Name, i => i.ChefsID, i => i.Price, i => i.MenuDate, i => i.FoodTypeID))
             {
                 _context.Restaurant.Add(newRestaurant);
                 await _context.SaveChangesAsync();

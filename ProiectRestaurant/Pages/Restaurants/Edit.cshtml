@@ -21,8 +21,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="Restaurant.ChefsID" class="control-label">Chef:</label>
-                <select asp-for="Restaurant.ChefsID" class="form-control" asp-items="ViewBag.ChefsID">
-                </select>
+                <select asp-for="Restaurant.ChefsID" class="form-control" asp-items="ViewBag.ChefsID"></select>
                 <span asp-validation-for="Restaurant.ChefsID" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -55,7 +54,7 @@
                                 }
                                 @:<td>
                                     <input type="checkbox" name="selectedCategories" value="@cat.CategoryID" @(Html.Raw(cat.Assigned ? "checked=\"checked\"" : "")) />
-                                    @cat.CategoryID @: @cat.Name
+                                    @cat.Name
                                 @:</td>
                                 }
                             @:</tr>

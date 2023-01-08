@@ -12,8 +12,8 @@ using ProiectRestaurant.Data;
 namespace ProiectRestaurant.Migrations
 {
     [DbContext(typeof(ProiectRestaurantContext))]
-    [Migration("20230106142159_Categories")]
-    partial class Categories
+    [Migration("20230108122925_Bucatar")]
+    partial class Bucatar
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

@@ -31,7 +31,6 @@ namespace ProiectRestaurant.Pages.FoodTypes
             FoodTypeData = new FoodTypeIndexData();
             FoodTypeData.FoodTypes = await _context.FoodType
             .Include(i => i.Restaurants)
-            .ThenInclude(c => c.Chefs)
             .OrderBy(i => i.FoodTypeName)
             .ToListAsync();
             if (id != null)

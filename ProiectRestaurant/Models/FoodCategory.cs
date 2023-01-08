@@ -1,4 +1,7 @@
-﻿namespace ProiectRestaurant.Models
+﻿using System.ComponentModel.DataAnnotations;
+using System.Xml.Linq;
+
+namespace ProiectRestaurant.Models
 {
     public class FoodCategory
     {
