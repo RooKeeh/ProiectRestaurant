@@ -58,6 +58,35 @@ namespace ProiectRestaurant.Migrations
                     b.ToTable("Chef");
                 });
 
+            modelBuilder.Entity("ProiectRestaurant.Models.Client", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
+
+                    b.Property<string>("Adress")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FirstName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Phone")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("Client");
+                });
+
             modelBuilder.Entity("ProiectRestaurant.Models.FoodCategory", b =>
                 {
                     b.Property<int>("ID")
@@ -95,6 +124,32 @@ namespace ProiectRestaurant.Migrations
                     b.HasKey("ID");
 
                     b.ToTable("FoodType");
+                });
+
+            modelBuilder.Entity("ProiectRestaurant.Models.Order", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
+
+                    b.Property<int?>("ClientID")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("OrderDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("RestaurantID")
+                        .HasColumnType("int");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("ClientID");
+
+                    b.HasIndex("RestaurantID");
+
+                    b.ToTable("Order");
                 });
 
             modelBuilder.Entity("ProiectRestaurant.Models.Restaurant", b =>
@@ -148,6 +203,21 @@ namespace ProiectRestaurant.Migrations
                     b.Navigation("Restaurant");
                 });
 
+            modelBuilder.Entity("ProiectRestaurant.Models.Order", b =>
+                {
+                    b.HasOne("ProiectRestaurant.Models.Client", "Client")
+                        .WithMany("Orders")
+                        .HasForeignKey("ClientID");
+
+                    b.HasOne("ProiectRestaurant.Models.Restaurant", "Restaurant")
+                        .WithMany()
+                        .HasForeignKey("RestaurantID");
+
+                    b.Navigation("Client");
+
+                    b.Navigation("Restaurant");
+                });
+
             modelBuilder.Entity("ProiectRestaurant.Models.Restaurant", b =>
                 {
                     b.HasOne("ProiectRestaurant.Models.Chef", "Chefs")
@@ -166,6 +236,11 @@ namespace ProiectRestaurant.Migrations
             modelBuilder.Entity("ProiectRestaurant.Models.Category", b =>
                 {
                     b.Navigation("FoodCategories");
+                });
+
+            modelBuilder.Entity("ProiectRestaurant.Models.Client", b =>
+                {
+                    b.Navigation("Orders");
                 });
 
             modelBuilder.Entity("ProiectRestaurant.Models.FoodType", b =>

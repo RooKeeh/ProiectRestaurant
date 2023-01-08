@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Security.Policy;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -12,6 +14,7 @@ using ProiectRestaurant.Models;
 
 namespace ProiectRestaurant.Pages.Restaurants
 {
+    [Authorize(Roles = "Admin")]
     public class CreateModel : FoodCategoriesPageModel
     {
         private readonly ProiectRestaurant.Data.ProiectRestaurantContext _context;

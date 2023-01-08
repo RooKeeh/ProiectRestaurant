@@ -21,5 +21,9 @@ namespace ProiectRestaurant.Data
         public DbSet<ProiectRestaurant.Models.Category> Category { get; set; }
 
         public DbSet<ProiectRestaurant.Models.Chef> Chef { get; set; }
+
+        public DbSet<ProiectRestaurant.Models.Client> Client { get; set; }
+
+        public DbSet<ProiectRestaurant.Models.Order> Order { get; set; }
     }
 }

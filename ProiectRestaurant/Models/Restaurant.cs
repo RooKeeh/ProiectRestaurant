@@ -8,12 +8,15 @@ namespace ProiectRestaurant.Models
     {
         public int ID { get; set; }
         [Display(Name = "Dish:")]
+        [StringLength(150, MinimumLength = 3)]
+        [Required]
         public string? Dish_Name { get; set; }
-        [Column(TypeName = "decimal(6, 2)")]
         [Display(Name = "Price:")]
+        [Column(TypeName = "decimal(6, 2)")]
+        [Range(0.01, 500)]
         public decimal Price { get; set; }
-        [DataType(DataType.Date)]
         [Display(Name = "Added on:")]
+        [DataType(DataType.Date)]
         public DateTime MenuDate { get; set; }
         public int? FoodTypeID { get; set; }
         public FoodType? FoodType { get; set; }

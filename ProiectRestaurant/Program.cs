@@ -1,12 +1,33 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using ProiectRestaurant.Data;
+using Microsoft.AspNetCore.Identity;
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("AdminPolicy", policy =>
+   policy.RequireRole("Admin"));
+});
+
 // Add services to the container.
-builder.Services.AddRazorPages();
+builder.Services.AddRazorPages(options =>
+{
+    options.Conventions.AuthorizeFolder("/Restaurants");
+    options.Conventions.AllowAnonymousToPage("/Restaurants/Index");
+    options.Conventions.AllowAnonymousToPage("/Restaurants/Details");
+    options.Conventions.AuthorizeFolder("/Clients", "AdminPolicy");
+});
 builder.Services.AddDbContext<ProiectRestaurantContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("ProiectRestaurantContext") ?? throw new InvalidOperationException("Connection string 'ProiectRestaurantContext' not found.")));
+
+options.UseSqlServer(builder.Configuration.GetConnectionString("ProiectRestaurantContext") ?? throw new InvalidOperationException("Connection string 'ProiectRestaurantContext' not found.")));
+builder.Services.AddDbContext<FoodIdentityContext>(options =>
+
+options.UseSqlServer(builder.Configuration.GetConnectionString("ProiectRestaurantContext") ?? throw new InvalidOperationException("Connection string 'ProiectRestaurantContext' not found.")));
+
+builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+    .AddRoles<IdentityRole>()
+    .AddEntityFrameworkStores<FoodIdentityContext>();
 
 var app = builder.Build();
 
@@ -22,6 +43,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+app.UseAuthentication();;
 
 app.UseAuthorization();
 

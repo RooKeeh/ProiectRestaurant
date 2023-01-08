@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Security.Policy;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -12,6 +14,7 @@ using ProiectRestaurant.Models;
 
 namespace ProiectRestaurant.Pages.Restaurants
 {
+    [Authorize(Roles = "Admin")]
     public class EditModel : FoodCategoriesPageModel
     {
         private readonly ProiectRestaurant.Data.ProiectRestaurantContext _context;
@@ -54,7 +57,7 @@ namespace ProiectRestaurant.Pages.Restaurants
             {
                 return NotFound();
             }
-            if (await TryUpdateModelAsync<Restaurant>(restaurantToUpdate, "Restaurant", i => i.Dish_Name, i => i.ChefsID, i => i.Price, i => i.MenuDate, i => i.FoodType))
+            if (await TryUpdateModelAsync<Restaurant>(restaurantToUpdate, "Restaurant", i => i.Dish_Name, i => i.ChefsID, i => i.Price, i => i.MenuDate, i => i.FoodTypeID))
             {
                 UpdateRestaurantCategories(_context, selectedCategories, restaurantToUpdate);
                 await _context.SaveChangesAsync();
